@@ -30,7 +30,7 @@ public class FilePanel {
 
 		JFileChooser fileChooser = new JFileChooser(".");
 		fileChooser.setControlButtonsAreShown(true);
-	    fileChooser.setFileFilter(new QboFileFilter());
+		fileChooser.setFileFilter(new QboFileFilter());
 
 		contentPane.add(fileChooser, BorderLayout.CENTER);
 
@@ -52,18 +52,18 @@ public class FilePanel {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	public static void parseFile(File f) {
 		Scanner freader = null;
 		try {
-	        freader = new Scanner(f);			
+			freader = new Scanner(f);			
 		} catch (FileNotFoundException e) {
 			System.err.println("File not found: " + e.getMessage());
 		}
 
 		File newFile = new File(f.getParent(), "FIXED_" + f.getName());
 		System.out.println("Writing new file to " + newFile);
-		
+
 		BufferedWriter out = null;
 		try {
 			FileWriter fstream = new FileWriter(newFile);
@@ -71,34 +71,34 @@ public class FilePanel {
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-		
+
 		Pattern p = Pattern.compile("^(.*?<MEMO>)(.{256,})$");
 		String line = null;
-        while (freader.hasNextLine()) {
-        	line = freader.nextLine();
-        	Matcher m = p.matcher(line);
-        	
-        	try {
-            	if (m.find()) {
-            		out.write(m.group(1) + m.group(2).substring(0, 251) + " ...\r\n");
-            	} else {
-            		out.write(line + "\r\n");
-            	}        		
-        	} catch (IOException e) {
-        		System.err.println("Got IOException writing file: " + e.getMessage());
-        	}
-        }
+		while (freader.hasNextLine()) {
+			line = freader.nextLine();
+			Matcher m = p.matcher(line);
 
-        freader.close();
-        if (out != null) {
-        	try { 
-        		out.close();
-        	} catch (IOException e) {
-            	System.err.println("Caught error closing output file: " + e.getMessage());
-        		
-        	}
-        	
-        }
-        JOptionPane.showMessageDialog(null, "Wrote fixed QBO file to " + newFile);
+			try {
+				if (m.find()) {
+					out.write(m.group(1) + m.group(2).substring(0, 251) + " ...\r\n");
+				} else {
+					out.write(line + "\r\n");
+				}        		
+			} catch (IOException e) {
+				System.err.println("Got IOException writing file: " + e.getMessage());
+			}
+		}
+
+		freader.close();
+		if (out != null) {
+			try { 
+				out.close();
+			} catch (IOException e) {
+				System.err.println("Caught error closing output file: " + e.getMessage());
+
+			}
+
+		}
+		JOptionPane.showMessageDialog(null, "Wrote fixed QBO file to " + newFile);
 	}
 }
