@@ -23,7 +23,7 @@ public class QboFileFilter extends FileFilter {
 
         String extension = getExtension(f);
         if (extension != null) {
-        	if (extension.equals("qbo")) {
+        	if (extension.equals("qbo") && !f.getName().toString().startsWith("FIXED_")) {
             	return true;
             } else {
             	return false;
