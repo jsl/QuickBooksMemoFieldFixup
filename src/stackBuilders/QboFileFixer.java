@@ -13,7 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class FilePanel {
+public class QboFileFixer {
 
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("QuickBooks HSBC FileFixer");
@@ -49,9 +49,5 @@ public class FilePanel {
 
 		frame.pack();
 		frame.setVisible(true);
-	}
-	
-	public static void refreshFiles() {
-		
-	}
+	}	
 }
