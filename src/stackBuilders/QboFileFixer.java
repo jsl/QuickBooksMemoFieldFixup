@@ -11,14 +11,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
+import java.lang.reflect.InvocationTargetException;
 
-public class QboFileFixer {
+public class QboFileFixer implements Runnable {
+    static JFrame mainFrame;
+    static JLabel label;
 
-	public static void main(String args[]) {
-		JFrame frame = new JFrame("QuickBooks HSBC FileFixer");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container contentPane = frame.getContentPane();
+    public void run() {
+		mainFrame = new JFrame("QuickBooks HSBC FileFixer");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container contentPane = mainFrame.getContentPane();
 
 		final JLabel headerLabel = new JLabel("Choose QBO File to Fix");
 		headerLabel.setFont(new Font("Serif", Font.BOLD, 36));
@@ -47,7 +51,18 @@ public class QboFileFixer {
 		};
 		fileChooser.addActionListener(actionListener);
 
-		frame.pack();
-		frame.setVisible(true);
+		mainFrame.pack();
+		mainFrame.setVisible(true);
+    }
+
+	public static void main(String args[]) {
+        Runnable app = new QboFileFixer();
+        try {
+            SwingUtilities.invokeAndWait(app);
+        } catch (InvocationTargetException ex) {
+            ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
 	}	
 }
