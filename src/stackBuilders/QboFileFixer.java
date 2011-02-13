@@ -16,8 +16,7 @@ import javax.swing.JLabel;
 import java.lang.reflect.InvocationTargetException;
 
 public class QboFileFixer implements Runnable {
-    static JFrame mainFrame;
-    static JLabel label;
+    JFrame mainFrame;
 
     public void run() {
 		mainFrame = new JFrame("QuickBooks HSBC FileFixer");
