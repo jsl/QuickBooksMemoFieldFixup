@@ -1,0 +1,13 @@
+QuickBooks HSBC File Fixer
+
+QuickBooks has a limitation of 255 characters for MEMO fields when importing bank transactions.  Some banks, like HSBC, 
+include more than this number of characters, which causes an import to fail.  This Java program automatically truncates any
+memo fields that are > 255 characters so that they can be cleanly imported.
+
+Here are some of the pages where people complain about this issue on the Intuit site:
+
+http://community.intuit.com/posts/importing-web-connect-transacations-from-hsbc
+http://community.intuit.com/posts/import-problems-with-hsbc
+
+This program lets you select a file, and a fixed transaction file is written to disk, with a filename prepended with 
+FIXED_.
